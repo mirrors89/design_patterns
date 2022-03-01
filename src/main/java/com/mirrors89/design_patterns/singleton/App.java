@@ -9,6 +9,8 @@ public class App {
     public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IOException, ClassNotFoundException {
         breakSingleton_reflection();
         breakSingleton_serialize();
+
+        enum_serialize();
     }
 
     public static void breakSingleton_reflection() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
@@ -30,6 +32,20 @@ public class App {
 
         try (ObjectInput in = new ObjectInputStream(new FileInputStream("settings.obj"))) {
             newInstance = (Settings_StaticInnerClass) in.readObject();
+        }
+
+        System.out.println(instance == newInstance);
+    }
+
+    public static void enum_serialize() throws IOException, ClassNotFoundException {
+        Settings_Enum instance = Settings_Enum.INSTANCE;
+        Settings_Enum newInstance;
+        try (ObjectOutput out = new ObjectOutputStream(new FileOutputStream("settings.obj"))) {
+            out.writeObject(instance);
+        }
+
+        try (ObjectInput in = new ObjectInputStream(new FileInputStream("settings.obj"))) {
+            newInstance = (Settings_Enum) in.readObject();
         }
 
         System.out.println(instance == newInstance);
