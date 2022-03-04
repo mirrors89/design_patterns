@@ -6,4 +6,6 @@
     <bean id="hello" class="java.lang.String">
         <constructor-arg value="hello"/>
     </bean>
+
+    <bean id="whiteShip" class="com.mirrors89.design_patterns.abstract_factory.java.ShipFactory" />
 </beans>
